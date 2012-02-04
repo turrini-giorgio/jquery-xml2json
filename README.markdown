@@ -11,3 +11,4 @@ Here's a simple usage example:
             json = $.xml2json(response);
         }
     });
+
