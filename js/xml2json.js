@@ -6,7 +6,7 @@
 (function(){
     jQuery.extend({
 
-        /**
+        /**w
          * Converts an xml response object from a $.ajax() call to a JSON object.
          *
          * @param xml
@@ -21,7 +21,7 @@
                     child = child == null ? {} : child;
 
                     if(result.hasOwnProperty(node.nodeName)) {
-                        // For repeating elements, cast the node to array
+                        // For repeating elements, cast/promote the node to array
                         if(!(result[node.nodeName] instanceof Array)){
                             var tmp = result[node.nodeName];
                             result[node.nodeName] = [];
@@ -37,13 +37,13 @@
                         result[node.nodeName]['@attributes'] = {};
                         for(var j in node.attributes) {
                             var attribute = node.attributes.item(j);
-                            result[node.nodeName]['@attributes'][attribute.nodeName] = attribute.nodeValue;
+                            child['@attributes'][attribute.nodeName] = attribute.nodeValue;
                         }
                     }
 
                     // Add element value
                     if(node.childElementCount == 0 && node.textContent != null && node.textContent != "") {
-                        result[node.nodeName].value = node.textContent.trim();
+                        child.value = node.textContent.trim();
                     }
                 }
             }

@@ -1,4 +1,7 @@
 <test library="jquery.xml2json" version="0.1">
+    <multiples>One</multiples>
     <lorem sticky="true">Lorem ipsum...     </lorem>
     <cdata><![CDATA[Some cdata block...]]></cdata>
+    <multiples>Two</multiples>
+    <multiples>Three</multiples>
 </test>

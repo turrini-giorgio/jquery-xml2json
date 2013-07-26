@@ -25,6 +25,17 @@ asyncTest("xml2json", function(){
                         },
                         value: 'Lorem ipsum...'
                     },
+                    "multiples": [
+                        {
+                            value: 'One'
+                        },
+                        {
+                            value: 'Two'
+                        },
+                        {
+                            value: 'Three'
+                        }
+                    ],
                     cdata: {
                         value: 'Some cdata block...'
                     }
