@@ -35,6 +35,7 @@
                     // Add attributes if any
                     if(node.attributes.length > 0) {
                         result[node.nodeName]['@attributes'] = {};
+                        child['@attributes'] = {};
                         for(var j in node.attributes) {
                             var attribute = node.attributes.item(j);
                             child['@attributes'][attribute.nodeName] = attribute.nodeValue;
