@@ -38,7 +38,7 @@
                         child['@attributes'] = {};
                         for(var j in node.attributes) {
                             var attribute = node.attributes.item(j);
-                            child['@attributes'][attribute.nodeName] = attribute.nodeValue;
+                            child['@attributes'][attribute.nodeName] = attribute.value;
                         }
                     }
 
