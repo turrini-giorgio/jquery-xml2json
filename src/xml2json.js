@@ -57,7 +57,7 @@
 
 		// element content
 		if (xml.childElementCount === 0) {
-			result[options.charkey] = (xml.textContent || '').trim();
+			result[options.charkey] = normalize(xml.textContent, options);
 		}
 
 		for (i = 0; i < xml.childNodes.length; i++) {
