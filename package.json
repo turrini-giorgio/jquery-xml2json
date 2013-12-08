@@ -1,0 +1,35 @@
+{
+  "name": "jquery-xml2json",
+  "version": "0.0.1",
+  "description": "jQuery plugin to convert XML to JSON.",
+  "license": "MIT",
+  "main": "js/xml2json.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:sergeyt/jQuery-xml2json.git"
+  },
+  "keywords": [
+    "jQuery-plugin",
+    "xml",
+    "json"
+  ],
+  "author": "Josef van Niekerk <josef.van.niekerk@gmail.com>",
+  "contributors": [
+  	"Josef van Niekerk <josef.van.niekerk@gmail.com>",
+    "Sergey Todyshev <stodyshev@gmail.com>"
+  ],
+  "dependencies": {
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-jshint": "~0.7.1",
+    "grunt-npm": "~0.0.2",
+    "grunt-bump": "~0.0.7",
+    "grunt-auto-release": "~0.0.2",
+    "grunt-cli": "~0.1.11"
+  },
+  "scripts": {
+    "lint": "grunt lint",
+    "test": "grunt test"
+  }
+}
