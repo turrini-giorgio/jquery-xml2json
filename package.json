@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "jQuery plugin to convert XML to JSON.",
   "license": "MIT",
-  "main": "js/xml2json.js",
+  "main": "src/xml2json.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:sergeyt/jQuery-xml2json.git"
@@ -39,7 +39,8 @@
     "karma-coverage": "~0.1.4",
     "mocha": "~1.15.1",
     "karma-mocha": "~0.1.1",
-    "expect.js": "~0.2.0"
+    "expect.js": "~0.2.0",
+    "grunt-karma": "~0.6.2"
   },
   "scripts": {
     "lint": "grunt lint",

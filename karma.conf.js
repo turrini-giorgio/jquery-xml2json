@@ -6,9 +6,15 @@ module.exports = function(config) {
 		// frameworks to use
 		frameworks: ['mocha'],
 
+		client: {
+			mocha: {
+				ui: 'bdd'
+			}
+		},
+
 		preprocessors: {
 			'*.js': 'coverage',
-			'test/*.coffee': 'coffee',
+			'test/*.coffee': 'coffee'
 		},
 
 		// list of files / patterns to load in the browser
