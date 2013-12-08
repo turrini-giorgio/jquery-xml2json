@@ -8,7 +8,8 @@
 	// default options based on https://github.com/Leonidas-from-XIV/node-xml2js
 	var defaultOptions = {
 		attrkey: '$',
-		charkey: '_'
+		charkey: '_',
+		normalize: false
 	};
 
 	// extracted from jquery
@@ -35,24 +36,14 @@
 		return xml;
 	}
 
-	/**w
-	 * Converts an xml document or string to a JSON object.
-	 *
-	 * @param xml
-	 */
-	function xml2json(xml, options) {
-		if (xml === null){
-			return null;
+	function normalize(value, options){
+		if (!!options.normalize){
+			return (value || '').trim();
 		}
+		return value;
+	}
 
-		options = options || defaultOptions;
-
-		if (typeof xml === 'string') {
-			if (!xml){
-				return '';
-			}
-			xml = parseXML(xml).documentElement;
-		}
+	function xml2jsonImpl(xml, options) {
 
 		var i, result = {}, attrs = {}, node, child, name;
 		result[options.attrkey] = attrs;
@@ -74,9 +65,9 @@
 			if (node.nodeType === 1) {
 
 				if (node.attributes.length === 0 && node.childElementCount === 0){
-					child = (node.textContent || '').trim();
+					child = normalize(node.textContent, options);
 				} else {
-					child = xml2json(node, options);
+					child = xml2jsonImpl(node, options);
 				}
 
 				name = node.nodeName;
@@ -95,6 +86,33 @@
 		}
 
 		return result;
+	}
+
+	/**w
+	 * Converts an xml document or string to a JSON object.
+	 *
+	 * @param xml
+	 */
+	function xml2json(xml, options) {
+		if (!xml) {
+			return xml;
+		}
+
+		options = options || defaultOptions;
+
+		if (typeof xml === 'string') {
+			xml = parseXML(xml).documentElement;
+		}
+
+		var root = {};
+
+		if (xml.attributes.length === 0 && xml.childElementCount === 0){
+			root[xml.nodeName] = normalize(xml.textContent, options);
+		} else {
+			root[xml.nodeName] = xml2jsonImpl(xml, options);
+		}
+
+		return root;
 	}
 
 	if (typeof jQuery !== 'undefined') {
