@@ -1,6 +1,6 @@
 {
   "name": "jquery-xml2json",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "jQuery plugin to convert XML to JSON.",
   "license": "MIT",
   "main": "src/xml2json.js",
