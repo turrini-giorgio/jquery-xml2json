@@ -40,6 +40,3 @@ describe 'with xml2json', ->
 		obj = xml2json '<test><![CDATA[cdata...]]></test>'
 		expect(obj._).to.be('cdata...')
 
-	it 'should parse cdata block', ->
-		obj = xml2json '<test><![CDATA[cdata...]]></test>'
-		expect(obj._).to.be('cdata...')
