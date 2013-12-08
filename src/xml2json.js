@@ -11,6 +11,7 @@
 		charkey: '_'
 	};
 
+	// extracted from jquery
 	function parseXML(data) {
 		var xml, tmp;
 		if (!data || typeof data !== "string") {
@@ -35,7 +36,7 @@
 	}
 
 	/**w
-	 * Converts an xml response object from a $.ajax() call to a JSON object.
+	 * Converts an xml document or string to a JSON object.
 	 *
 	 * @param xml
 	 */
@@ -43,42 +44,45 @@
 		options = options || defaultOptions;
 
 		if (typeof xml === 'string') {
-			xml = parseXML(xml);
+			xml = parseXML(xml).documentElement;
 		}
 
-		var result = {};
+		var i, result = {}, attrs = {}, node, child, name;
+		result[options.attrkey] = attrs;
 
-		for (var i in xml.childNodes) {
-			var node = xml.childNodes[i];
+		if (xml.attributes && xml.attributes.length > 0) {
+			for (i = 0; i < xml.attributes.length; i++){
+				var item = xml.attributes.item(i);
+				attrs[item.nodeName] = item.value;
+			}
+		}
+
+		// element content
+		if (xml.childElementCount === 0) {
+			result[options.charkey] = (xml.textContent || '').trim();
+		}
+
+		for (i = 0; i < xml.childNodes.length; i++) {
+			node = xml.childNodes[i];
 			if (node.nodeType === 1) {
-				var child = node.hasChildNodes() ? xml2json(node, options) : node.nodevalue;
-				child = child === null ? {} : child;
 
-				if (result.hasOwnProperty(node.nodeName)) {
-					// For repeating elements, cast/promote the node to array
-					if (!(result[node.nodeName] instanceof Array)) {
-						var tmp = result[node.nodeName];
-						result[node.nodeName] = [];
-						result[node.nodeName].push(tmp);
-					}
-					result[node.nodeName].push(child);
+				if (node.attributes.length === 0 && node.childElementCount === 0){
+					child = (node.textContent || '').trim();
 				} else {
-					result[node.nodeName] = child;
+					child = xml2json(node, options);
 				}
 
-				// Add attributes if any
-				if (node.attributes.length > 0) {
-					result[node.nodeName][options.attrkey] = {};
-					child[options.attrkey] = {};
-					for (var j in node.attributes) {
-						var attribute = node.attributes.item(j);
-						child[options.attrkey][attribute.nodeName] = attribute.value;
+				name = node.nodeName;
+				if (result.hasOwnProperty(name)) {
+					// For repeating elements, cast/promote the node to array
+					var val = result[name];
+					if (!Array.isArray(val)) {
+						val = [val];
+						result[name] = val;
 					}
-				}
-
-				// Add element value
-				if (node.childElementCount === 0 && node.textContent !== null && node.textContent !== "") {
-					child[options.charkey] = node.textContent.trim();
+					val.push(child);
+				} else {
+					result[name] = child;
 				}
 			}
 		}
