@@ -28,8 +28,8 @@ module.exports = (grunt) ->
 					require: true
 			dev:
 				options:
-					ignores: ['*.min.js', 'js/*.min.js']
-				src: ['*.js', 'js/*.js']
+					ignores: ['*.min.js', 'src/*.min.js']
+				src: ['*.js', 'src/*.js']
 
 	grunt.loadNpmTasks 'grunt-contrib-jshint'
 	grunt.loadNpmTasks 'grunt-npm'
