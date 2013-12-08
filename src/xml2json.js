@@ -41,9 +41,16 @@
 	 * @param xml
 	 */
 	function xml2json(xml, options) {
+		if (xml === null){
+			return null;
+		}
+
 		options = options || defaultOptions;
 
 		if (typeof xml === 'string') {
+			if (!xml){
+				return '';
+			}
 			xml = parseXML(xml).documentElement;
 		}
 
