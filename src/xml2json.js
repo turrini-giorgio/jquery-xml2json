@@ -10,7 +10,7 @@
 		attrkey: '$',
 		charkey: '_',
 		normalize: false,
-		implicitArray: false
+		explicitArray: false
 	};
 
 	// extracted from jquery
@@ -80,7 +80,7 @@
 						result[name] = val;
 					}
 					val.push(child);
-				} else if(options.implicitArray) {
+				} else if(options.explicitArray === true) {
 					result[name] = [child];
 				} else {
 					result[name] = child;
