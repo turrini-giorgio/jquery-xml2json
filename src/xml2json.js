@@ -9,7 +9,8 @@
 	var defaultOptions = {
 		attrkey: '$',
 		charkey: '_',
-		normalize: false
+		normalize: false,
+		explicitArray: false
 	};
 
 	// extracted from jquery
@@ -79,6 +80,8 @@
 						result[name] = val;
 					}
 					val.push(child);
+				} else if(options.explicitArray === true) {
+					result[name] = [child];
 				} else {
 					result[name] = child;
 				}
@@ -94,19 +97,28 @@
 	 * @param xml
 	 */
 	function xml2json(xml, options) {
+		var n;
+
 		if (!xml) {
 			return xml;
 		}
 
-		options = options || defaultOptions;
+		options = options || {};
+
+		for(n in defaultOptions) {
+			if(defaultOptions.hasOwnProperty(n) && options[n] === undefined) {
+				options[n] = defaultOptions[n];
+			}
+		}
 
 		if (typeof xml === 'string') {
 			xml = parseXML(xml).documentElement;
 		}
 
 		var root = {};
-
-		if (xml.attributes.length === 0 && xml.childElementCount === 0){
+		if (typeof xml.attributes === 'undefined') {
+			root[xml.nodeName] = xml2jsonImpl(xml, options);
+		} else if (xml.attributes.length === 0 && xml.childElementCount === 0){
 			root[xml.nodeName] = normalize(xml.textContent, options);
 		} else {
 			root[xml.nodeName] = xml2jsonImpl(xml, options);
