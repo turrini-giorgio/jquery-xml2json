@@ -116,12 +116,11 @@
 		}
 
 		var root = {};
-		if (typeof xml.attributes === 'undefined' || xml.attributes === null) {
-			root[xml.nodeName] = xml2jsonImpl(xml, options);
-		} else if (xml.attributes && xml.attributes.length === 0 && xml.childElementCount === 0){
-			root[xml.nodeName] = normalize(xml.textContent, options);
+		
+		if (xml.attributes && xml.attributes.length === 0 && xml.childElementCount === 0){
+		  root[xml.nodeName] = normalize(xml.textContent, options);
 		} else {
-			root[xml.nodeName] = xml2jsonImpl(xml, options);
+		  root[xml.nodeName] = xml2jsonImpl(xml, options);
 		}
 
 		return root;
