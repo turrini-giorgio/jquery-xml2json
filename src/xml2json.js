@@ -7,6 +7,7 @@
 
 	// default options based on https://github.com/Leonidas-from-XIV/node-xml2js
 	var defaultOptions = {
+		attrprefix: '@',
 		attrkey: '$',
 		charkey: '_',
 		normalize: false,
@@ -47,12 +48,17 @@
 	function xml2jsonImpl(xml, options) {
 
 		var i, result = {}, attrs = {}, node, child, name;
-		result[options.attrkey] = attrs;
+		if(options.attrkey) {
+			result[options.attrkey] = attrs;
+		} else {
+			attrs = result;
+		}
 
 		if (xml.attributes && xml.attributes.length > 0) {
 			for (i = 0; i < xml.attributes.length; i++){
 				var item = xml.attributes.item(i);
-				attrs[item.nodeName] = item.value;
+				var attrName = !!options.attrprefix ? options.attrprefix + item.nodeName : item.nodeName;
+				attrs[attrName] = item.value;
 			}
 		}
 
